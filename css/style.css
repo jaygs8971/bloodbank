@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
-body{
+body {
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -38,7 +38,7 @@ body {
 }
 
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff !important;
     background-color: #dc3545 !important;
 }
@@ -49,53 +49,63 @@ body {
     background-color: transparent;
 }
 
-.form-error .my-inp{
+.form-error .my-inp {
     border: 1px solid #d83d5a !important;
 }
 
+.padding-outer {
+    padding: 40px;
+    margin-top: 20px;
+}
+
+.padding-inner {
+    padding: 40px;
+}
+
+.dash-padding-outer {
+    padding: 40px;
+    margin-top: 20px;
+
+}
+
 @media (max-width: 768px) {
-    .dashboard-form{
+    .dashboard-form {
         margin-top: 20px;
     }
-}
 
-.padding-outer{
-    padding: 40px;
-    margin-top: 20px;
-}
-
-.padding-inner{
-    padding: 40px;
-}
-
-.dash-padding-outer{
-    padding: 40px;
-    margin-top: 20px;
-
-}
-
-@media (max-width: 768px) {
-    .padding-outer{
+    .padding-outer {
         padding: 20px;
     }
 
-    .padding-inner{
+    .padding-inner {
         padding: 20px;
     }
-    .dash-padding-outer{
+
+    .dash-padding-outer {
         padding: 0;
         margin-top: 20px;
         margin-bottom: 40px;
     }
 
-    .my-form-name{
+    .my-form-name {
         font-size: 18px !important;
     }
 
-    .register-outer{
+    .register-outer {
         padding: 0 20px 0 20px !important;
     }
+
+    .reg-image{
+        margin-top: 25px !important;
+    }
+    .user-reg .row{
+        display: flex;
+        flex-flow: column-reverse;
+    }
+
 }
+
+
 
 span {
     width: 100%;
@@ -105,7 +115,7 @@ span {
     font-size: 14px !important;
 }
 
-.register-outer{
+.register-outer {
     padding: 0 50px 0 50px;
 }
 

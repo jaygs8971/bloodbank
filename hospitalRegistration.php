@@ -141,7 +141,7 @@ if (isset($_POST['register'])) {
 <div class="container-fluid register-outer">
     <div class="row align-items-center">
         <div class="col-lg-6">
-            <div style="text-align: center;"><img src="images/img2.jpg" alt="img" class="img-fluid" height="600px"
+            <div style="text-align: center;" class="reg-image"><img src="images/img2.jpg" alt="img" class="img-fluid" height="600px"
                                                   width="600px">
             </div>
         </div>

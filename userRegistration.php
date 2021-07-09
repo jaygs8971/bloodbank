@@ -135,8 +135,8 @@ if (isset($_POST['register'])) {
     </div>
 </nav>
 
-<div class="container-fluid register-outer">
-    <div class="row align-items-center">
+<div class="container-fluid register-outer user-reg reg-image">
+    <div class="row align-items-center ">
         <div class="col-lg-6 padding-outer">
             <div class="align-items-center flex-column justify-content-center">
                 <?php if (isset($success)) : ?>
