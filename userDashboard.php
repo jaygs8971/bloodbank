@@ -138,7 +138,7 @@ global $conn;
                                                     <td><?php echo $s2['volume']; ?></td>
                                                     <td><?php echo $qry1['h_name'] ?></td>
                                                     <td style="text-transform: lowercase"><?php echo $qry1['p_number'] . ", " . $qry1['email']; ?></td>
-                                                    <td><?php echo $qry1['city'] . " " . $qry1['h_state']; ?></td>
+                                                    <td><?php echo $qry1['city'] . ", " . $qry1['h_state']; ?></td>
                                                     <?php
                                                     if ($s2['status'] == 0) {
                                                         ?>

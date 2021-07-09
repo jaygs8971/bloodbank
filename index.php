@@ -100,8 +100,6 @@ session_start();
     <div class="padding-outer ">
         <div class="my-class padding-inner">
             <h3 class="h5 text-danger my-form-name">Available Blood Samples</h3>
-
-
             <?php
             $slNo = 1;
             if (mysqli_num_rows($sql1 = mysqli_query($conn, "SELECT * FROM stock WHERE volume !=0 ORDER BY stock_id DESC")) == 0) {

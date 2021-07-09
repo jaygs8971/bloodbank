@@ -414,8 +414,7 @@ if (isset($_POST['add_blood'])) {
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Blood Group</th>
                                             <th scope="col">Volume (ml)</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">Contact Info</th>
                                             <th scope="col">Requested</th>
                                             <th scope="col">Fulfilled</th>
                                         </tr>
@@ -432,10 +431,9 @@ if (isset($_POST['add_blood'])) {
                                             $field2name = $q5["f_name"] . " " . $q5["l_name"];
                                             $field3name = $q6["b_group"];
                                             $field4name = $q4["volume"];
-                                            $field5name = $q5["p_number"];
-                                            $field6name = $q5["email"];
-                                            $field7name = $q4["created_at"];
-                                            $field8name = $q4["updated_at"];
+                                            $field5name = $q5["p_number"] .", " .$q5["email"];;
+                                            $field6name = $q4["created_at"];
+                                            $field7name = $q4["updated_at"];
                                             $slNum++;
 
                                             echo '<tr> 
@@ -446,7 +444,6 @@ if (isset($_POST['add_blood'])) {
                                               <td>' . $field5name . '</td> 
                                               <td>' . $field6name . '</td> 
                                               <td>' . $field7name . '</td> 
-                                              <td>' . $field8name . '</td> 
                                           </tr>';
                                         }
                                         ?>
@@ -478,8 +475,7 @@ if (isset($_POST['add_blood'])) {
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Blood Group</th>
                                             <th scope="col">Volume (ml)</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">Contact Info</th>
                                             <th scope="col">Requested</th>
                                             <th scope="col">Denied</th>
                                         </tr>
@@ -496,10 +492,9 @@ if (isset($_POST['add_blood'])) {
                                             $field2name = $q5["f_name"] . " " . $q5["l_name"];
                                             $field3name = $q6["b_group"];
                                             $field4name = $q4["volume"];
-                                            $field5name = $q5["p_number"];
-                                            $field6name = $q5["email"];
-                                            $field7name = $q4["created_at"];
-                                            $field8name = $q4["updated_at"];
+                                            $field5name = $q5["p_number"] .  ", " .$q5["email"];;
+                                            $field6name = $q4["created_at"];
+                                            $field7name = $q4["updated_at"];
                                             $slNum++;
 
                                             echo '<tr> 
@@ -509,8 +504,7 @@ if (isset($_POST['add_blood'])) {
                                               <td>' . $field4name . '</td> 
                                               <td>' . $field5name . '</td> 
                                               <td>' . $field6name . '</td> 
-                                              <td>' . $field7name . '</td> 
-                                              <td>' . $field8name . '</td> 
+                                              <td>' . $field7name . '</td>
                                           </tr>';
                                         }
                                         ?>
