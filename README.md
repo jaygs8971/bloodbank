@@ -3,7 +3,7 @@ A simlle blood bank system developed using PHP and MySQL database.
 
 To start using the app locally, follow the instructions mentioned below
 
-### Database,
+### Database
 - Clone the repo or download and extract the files
 - Go to localhost/phpmyadmin (if you are using XAMPP/WAMP)
 - Create a database named *bloodbank*
