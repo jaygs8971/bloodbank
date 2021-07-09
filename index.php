@@ -37,6 +37,10 @@ session_start();
                 if (isset($_SESSION['user'])): {
                     if ($_SESSION['user'] == 'user') {
                         ?>
+                        <li class="nav-item">
+                            <a class="nav-link " href="userDashboard.php">Dashboard</a>
+                        </li>
+
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -92,86 +96,87 @@ session_start();
     </div>
 </nav>
 
-<div class="padding-outer">
-    <div class="my-class padding-inner">
-        <h3 class="h5 text-danger my-form-name">Available Blood Samples</h3>
+<div class="col-md-12 p-0">
+    <div class="padding-outer ">
+        <div class="my-class padding-inner">
+            <h3 class="h5 text-danger my-form-name">Available Blood Samples</h3>
 
 
-        <?php
-        $slNo = 1;
-        if (mysqli_num_rows($sql1 = mysqli_query($conn, "SELECT * FROM stock ORDER BY stock_id DESC")) == 0) {
-            echo '<h6 class="mt-4 w-50">No records found!</h6>';
-        }else{
-        ?>
+            <?php
+            $slNo = 1;
+            if (mysqli_num_rows($sql1 = mysqli_query($conn, "SELECT * FROM stock WHERE volume !=0 ORDER BY stock_id DESC")) == 0) {
+                echo '<h6 class="mt-4 w-50">No records found!</h6>';
+            }else{
+            ?>
 
-        <div class="table-responsive">
-            <table class="table table-striped table-hover mt-4">
-                <thead class="table-light">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Hospital Name</th>
-                    <th scope="col">Blood Group</th>
-                    <th scope="col">City</th>
-                    <th scope="col">State</th>
-<!--                    <th scope="col">Quantity (ml)</th>-->
-                    <?php if (isset($_SESSION['user'])) {
-                        if ($_SESSION['user'] == 'admin') {
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mt-4">
+                    <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Blood Group</th>
+                        <th scope="col">Hospital Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Contact Info</th>
+                        <!--                    <th scope="col">Quantity (ml)</th>-->
+                        <?php if (isset($_SESSION['user'])) {
+                            if ($_SESSION['user'] == 'admin') {
+                            } else {
+                                ?>
+                                <th scope="col">Action</th>
+                                <?php
+                            }
                         } else {
                             ?>
                             <th scope="col">Action</th>
                             <?php
                         }
-                    } else {
                         ?>
-                        <th scope="col">Action</th>
-                        <?php
-                    }
-                    ?>
-                </tr>
-                </thead>
-                <caption>Last updated at: <?php
-                    if (mysqli_num_rows($qry1 = mysqli_query($conn, "SELECT * FROM stock ORDER BY updated_at DESC LIMIT 1")) > 0) {
-                        $qry2 = mysqli_fetch_assoc($qry1);
-                        echo $qry2['updated_at'];
-                    } else {
-                        echo "00";
-                    }
-                    ?></caption>
-                <tbody>
-                <?php
-                while ($res1 = mysqli_fetch_array($sql1)) {
+                    </tr>
+                    </thead>
+                    <caption>Last updated at: <?php
+                        if (mysqli_num_rows($qry1 = mysqli_query($conn, "SELECT * FROM stock ORDER BY updated_at DESC LIMIT 1")) > 0) {
+                            $qry2 = mysqli_fetch_assoc($qry1);
+                            echo $qry2['updated_at'];
+                        } else {
+                            echo "00";
+                        }
+                        ?></caption>
+                    <tbody style="text-transform: capitalize">
+                    <?php
+                    while ($res1 = mysqli_fetch_array($sql1)) {
 
-                $sql2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM hospital WHERE hospital_id = '$res1[hospital_id]'"));
-                $sql3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM blood WHERE blood_id = '$res1[blood_id]'"));
+                    $sql2 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM hospital WHERE hospital_id = '$res1[hospital_id]'"));
+                    $sql3 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM blood WHERE blood_id = '$res1[blood_id]'"));
 
-                $field1name = $slNo;
-                $field2name = $sql2["h_name"];
-                $field3name = $sql3["b_group"];
-                $field4name = $sql2["city"];
-                $field5name = $sql2["h_state"];
-//                $field6name = $res1["volume"];
+                    $field1name = $slNo;
+                    $field2name = $sql3["b_group"];
+                    $field3name = $sql2["h_name"];
+                    $field4name = $sql2["city"] . ", " . $sql2["h_state"];
+                    $field5name = $sql2["p_number"] . ", " . $sql2["email"];
+                    //                $field6name = $res1["volume"];
 
-//                if ($field6name <= 0) {
-//                    continue;
-//                }
+                    //                if ($field6name <= 0) {
+                    //                    continue;
+                    //                }
 
-                if (isset($_SESSION['user'])) {
-                    if ($_SESSION['user'] == "admin") {
-                        echo '<tr > 
+                    if (isset($_SESSION['user'])) {
+                        if ($_SESSION['user'] == "admin") {
+                            echo '<tr > 
                   <td>' . $field1name . '</td> 
-                  <td style="text-transform: capitalize">' . $field2name . '</td> 
+                  <td>' . $field2name . '</td> 
                   <td>' . $field3name . '</td> 
-                  <td>' . $field4name . '</td> 
-                  <td>' . $field5name . '</td> 
+                  <td style="text-transform: capitalize">' . $field4name . '</td> 
+                  <td style="text-transform: lowercase">' . $field5name . '</td> 
 
               </tr>              
               ';
-                        $slNo++;
-                    } else {
-                        ?>
-                        <form action="requestSample.php" method="post">
-                            <?php
-                            echo '<tr> 
+                            $slNo++;
+                        } else {
+                            ?>
+                            <form action="requestSample.php" method="post">
+                                <?php
+                                echo '<tr> 
                   <td>' . $field1name . '</td> 
                   <td style="text-transform: capitalize">' . $field2name . '</td> 
                   <td>' . $field3name . '</td> 
@@ -181,18 +186,18 @@ session_start();
                   <td> <input type="submit" name="request" class="btn btn-outline-danger btn-sm" value="Request Sample"></td>
               </tr>';
 
-                            ?>
-                        </form>
+                                ?>
+                            </form>
 
+                            <?php
+                            $slNo++;
+                        }
+
+                    } else {
+                    ?>
+                    <form action="requestSample.php" method="post">
                         <?php
-                        $slNo++;
-                    }
-
-                } else {
-                ?>
-                <form action="requestSample.php" method="post">
-                    <?php
-                    echo '<tr> 
+                        echo '<tr> 
                   <td>' . $field1name . '</td> 
                   <td style="text-transform: capitalize">' . $field2name . '</td> 
                   <td>' . $field3name . '</td> 
@@ -202,19 +207,21 @@ session_start();
                   <td> <input type="submit" value="Request Sample" class="btn-sm btn btn-outline-danger" name="request"> </td> 
 
               </tr>';
-                    ?><?php
-                    $slNo++;
-                    }
-                    }
-                    }
-                    ?>
-                </form>
+                        ?><?php
+                        $slNo++;
+                        }
+                        }
+                        }
+                        ?>
+                    </form>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
 
 <footer class="my-4 p-2 text-muted text-center text-small">
     <p class="mb-1">&copy; 2021 Blood Bank. By Jayaram G S</p>

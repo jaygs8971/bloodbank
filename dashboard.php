@@ -166,12 +166,18 @@ if (isset($_POST['add_blood'])) {
             <!--  MENU PILLS-->
             <div class="col-lg-2">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="add-blood-tab" data-toggle="pill" href="#add-blood" role="tab"
-                       aria-controls="add-blood" aria-selected="true"><i class="bi bi-journal-medical"></i>
+                    <a class="nav-link active" id="stock-details-tab" data-toggle="pill" href="#stock-details"
+                       role="tab"
+                       aria-controls="stock-details" aria-selected="false"><i class="bi bi-file-earmark-diff"></i>&nbsp;
+                        Stock
+                        Details</a>
+                    <a class="nav-link" id="add-blood-tab" data-toggle="pill" href="#add-blood" role="tab"
+                       aria-controls="add-blood" aria-selected="true"><i class="bi bi-journal-medical"></i>&nbsp;
                         Update Bank</a>
+
                     <a class="nav-link" id="blood-requests-tab" data-toggle="pill" href="#blood-requests" role="tab"
                        aria-controls="blood-requests" aria-selected="false"><i
-                                class="bi bi-arrow-down-right-square"></i> Requests <span class="">
+                                class="bi bi-arrow-down-right-square"></i>&nbsp; Requests<span>
                         <?php
                         $count = 0;
                         if (($q1 = mysqli_query($conn, "SELECT  * FROM request WHERE status = 0 and hospital_id = '$_SESSION[user_id]'"))) {
@@ -184,15 +190,20 @@ if (isset($_POST['add_blood'])) {
                         }
                         ?>
                         </span></a>
-                    <a class="nav-link" id="stock-details-tab" data-toggle="pill" href="#stock-details" role="tab"
-                       aria-controls="stock-details" aria-selected="false"><i class="bi bi-file-earmark-diff"></i> Stock
-                        Details</a>
-                    <a class="nav-link" id="blood-report-tab" data-toggle="pill" href="#blood-report" role="tab"
-                       aria-controls="blood-report" aria-selected="false"><i class="bi bi-card-checklist"></i>
-                        Report</a>
+
+                    <a class="nav-link" id="blood-report-approved-tab" data-toggle="pill" href="#blood-report-approved"
+                       role="tab"
+                       aria-controls="blood-report-approved" aria-selected="false"><i class="bi bi-journal-check"></i>&nbsp;
+                        Approved Requests</a>
+
+                    <a class="nav-link" id="blood-report-denied-tab" data-toggle="pill" href="#blood-report-denied"
+                       role="tab"
+                       aria-controls="blood-report-denied" aria-selected="false"><i class="bi bi-journal-x"></i>&nbsp;
+                        Denied Requests</a>
 
                     <a class="nav-link" id="profile-details-tab" data-toggle="pill" href="#profile-details" role="tab"
-                       aria-controls="profile-details" aria-selected="false"><i class="bi bi-person-circle"></i> Profile</a>
+                       aria-controls="profile-details" aria-selected="false"><i class="bi bi-person-circle"></i>&nbsp;
+                        Profile</a>
                 </div>
             </div>
 
@@ -200,7 +211,7 @@ if (isset($_POST['add_blood'])) {
                 <div class="my-class padding-inner dashboard-form">
                     <div class="tab-content" id="v-pills-tabContent">
                         <!--                        Add Blood-->
-                        <div class="tab-pane fade show active" id="add-blood" role="tabpanel"
+                        <div class="tab-pane fade" id="add-blood" role="tabpanel"
                              aria-labelledby="add-blood-tab">
                             <form class="" method="post" action="dashboard.php">
                                 <h3 class="h5 mb-4 text-danger my-form-name">Add Blood Details</h3>
@@ -231,9 +242,9 @@ if (isset($_POST['add_blood'])) {
                         </div>
 
                         <!--                        Blood Requests-->
-                        <div class="tab-pane fade" id="blood-requests" role="tabpanel"
+                        <div class="tab-pane fade " id="blood-requests" role="tabpanel"
                              aria-labelledby="blood-requests-tab">
-                            <h3 class="h5 text-danger my-form-name">Blood Sample Requests</h3>
+                            <h3 class="h5 text-danger my-form-name">Blood Sample Requests Pending</h3>
 
                             <?php
                             global $conn;
@@ -290,7 +301,7 @@ if (isset($_POST['add_blood'])) {
                         </div>
 
                         <!--                        STOCK DETAILS-->
-                        <div class=" tab-pane fade" id="stock-details" role="tabpanel"
+                        <div class=" tab-pane fade show active" id="stock-details" role="tabpanel"
                              aria-labelledby="stock-details-tab">
                             <h3 class="h5 text-danger my-form-name">Blood Bank Stock</h3>
 
@@ -335,7 +346,7 @@ if (isset($_POST['add_blood'])) {
                                     </table>
                                 </div>
                             <?php } else {
-                                echo '<h6 class="mt-4 w-50">No requests</h6>';
+                                echo '<h6 class="mt-4 w-50">No records found</h6>';
                             }
                             ?>
                         </div>
@@ -387,10 +398,10 @@ if (isset($_POST['add_blood'])) {
                             </div>
                         </div>
 
-                        <!--                        BLOOD REPORTS  -->
-                        <div class="tab-pane fade" id="blood-report" role="tabpanel"
-                             aria-labelledby="blood-report-tab">
-                            <h3 class="h5 text-danger my-form-name">Sample Requests Fulfilled</h3>
+                        <!--                        BLOOD REPORTS APPROVED-->
+                        <div class="tab-pane fade" id="blood-report-approved" role="tabpanel"
+                             aria-labelledby="blood-report-approved-tab">
+                            <h3 class="h5 text-danger my-form-name">Sample Requests Approved</h3>
                             <?php
                             $slNum = 1;
                             if (mysqli_num_rows($q3 = mysqli_query($conn, "SELECT * FROM request WHERE hospital_id = '$_SESSION[user_id]' AND status = 1 ORDER BY created_at DESC LIMIT 10")) > 0) {
@@ -450,6 +461,71 @@ if (isset($_POST['add_blood'])) {
                             ?>
 
                         </div>
+
+                        <!--                        BLOOD REPORTS DENIED -->
+                        <div class="tab-pane fade" id="blood-report-denied" role="tabpanel"
+                             aria-labelledby="blood-report-denied-tab">
+                            <h3 class="h5 text-danger my-form-name">Sample Requests Denied</h3>
+                            <?php
+                            $slNum = 1;
+                            if (mysqli_num_rows($q3 = mysqli_query($conn, "SELECT * FROM request WHERE hospital_id = '$_SESSION[user_id]' AND status = 2 ORDER BY created_at DESC LIMIT 10")) > 0) {
+                                ?>
+                                <div class="table-responsive ">
+                                    <table class="table table-hover mt-4">
+                                        <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Blood Group</th>
+                                            <th scope="col">Volume (ml)</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Requested</th>
+                                            <th scope="col">Denied</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        while ($q4 = mysqli_fetch_assoc($q3)) {
+                                            ?>
+                                            <?php
+                                            $q5 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM user WHERE user_id = '$q4[user_id]'"));
+                                            $q6 = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM blood WHERE blood_id = '$q4[blood_id]'"));
+
+                                            $field1name = $slNum;
+                                            $field2name = $q5["f_name"] . " " . $q5["l_name"];
+                                            $field3name = $q6["b_group"];
+                                            $field4name = $q4["volume"];
+                                            $field5name = $q5["p_number"];
+                                            $field6name = $q5["email"];
+                                            $field7name = $q4["created_at"];
+                                            $field8name = $q4["updated_at"];
+                                            $slNum++;
+
+                                            echo '<tr> 
+                                              <td>' . $field1name . '</td> 
+                                              <td>' . $field2name . '</td> 
+                                              <td>' . $field3name . '</td> 
+                                              <td>' . $field4name . '</td> 
+                                              <td>' . $field5name . '</td> 
+                                              <td>' . $field6name . '</td> 
+                                              <td>' . $field7name . '</td> 
+                                              <td>' . $field8name . '</td> 
+                                          </tr>';
+                                        }
+                                        ?>
+                                        <caption>Displaying <?php echo $slNum - 1; ?> recent denials.</caption>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?php
+                            } else {
+                                echo '<h6 class="mt-4 w-50">No records found</h6>';
+                            }
+                            ?>
+
+                        </div>
+
 
                     </div>
                 </div>

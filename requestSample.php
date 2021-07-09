@@ -61,9 +61,9 @@ if (isset($_POST['confirmRequest'])) {
 
 <nav class="navbar navbar-expand-md navbar-dark bg-danger">
     <div class="container">
-        <a class="navbar-brand abs" href="#">Blood Bank</a>
+        <a class="navbar-brand abs" href="#"><i class="bi bi-droplet-half"></i>&nbsp; Blood Bank</a>
         <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNavbar">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon" style="margin: 5px"></span>
         </button>
         <div class="navbar-collapse collapse" id="collapseNavbar">
             <ul class="navbar-nav  ml-auto">
@@ -74,53 +74,23 @@ if (isset($_POST['confirmRequest'])) {
                 if (isset($_SESSION['user'])): {
                     if ($_SESSION['user'] == 'user') {
                         ?>
-                        <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Hi, <?php echo $_SESSION['username']; ?>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                            </ul>
-                        </li>
-                        <?php
-                    } else {
-                        ?>
                         <li class="nav-item">
-                            <a class="nav-link " href="dashboard.php">Dashboard</a>
+                            <a class="nav-link" href="userDashboard.php">Dashboard</a>
                         </li>
-                        <li class="nav-item dropdown ">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span style="text-transform: capitalize">Welcome, <?php echo $_SESSION['username']; ?> </span>
+                                <text>
+                                    Hi, <?php echo $_SESSION['username']; ?></text>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                                <li><a class="dropdown-item" href="logout.php"><i class="bi bi-box-arrow-right"></i>
+                                        Logout</a></li>
                             </ul>
                         </li>
                         <?php
                     }
-
-                    ?>
-                <?php } else : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">
-                            Login
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Register
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="userRegistration.php">User / Receiver</a></li>
-                            <li><a class="dropdown-item" href="hospitalRegistration.php">Hospital</a></li>
-                        </ul>
-                    </li>
-                <?php
+                }
                 endif; ?>
             </ul>
         </div>
@@ -130,17 +100,15 @@ if (isset($_POST['confirmRequest'])) {
 <div class="container col-lg-6 padding-outer">
     <?php if (isset($request_success)) : ?>
         <p class="alert alert-info"><i class="bi bi-info-circle"></i>&nbsp; Sample requested. We will get back to you
-                shortly!</i></p>
+            shortly!</i></p>
     <?php endif; ?>
 
     <div class="align-items-center flex-column justify-content-center">
         <?php if (isset($exists_error)) : ?>
-            <div class="alert alert-danger alert-dismissible fade show " role="alert"><i class="bi bi-exclamation-circle">
-                </i> &nbsp; Cannot request for another sample. Request already exits.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"><i class="bi bi-x" style="font-size: 24px"></i></span>
-                    </button>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle"></i>&nbsp; Cannot request for another sample. Request already exits.
             </div>
+
         <?php endif; ?>
         <form class="my-class col-md-12 padding-inner" action="requestSample.php" method="post">
             <span><a href="index.php" class="btn-sm btn btn-outline-secondary"><i

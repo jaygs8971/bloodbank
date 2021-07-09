@@ -141,8 +141,9 @@ if (isset($_POST['register'])) {
 <div class="container-fluid register-outer">
     <div class="row align-items-center">
         <div class="col-lg-6">
-            <div style="text-align: center;" class="reg-image"><img src="images/img2.jpg" alt="img" class="img-fluid" height="600px"
-                                                  width="600px">
+            <div style="text-align: center;" class="reg-image"><img src="images/img2.jpg" alt="img" class="img-fluid"
+                                                                    height="600px"
+                                                                    width="600px">
             </div>
         </div>
         <div class="col-lg-6 padding-outer">
@@ -173,10 +174,12 @@ if (isset($_POST['register'])) {
 
                         <div class="form-group col-md-6">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" maxlength="20"
+                            <input type="text" class="form-control" id="username" name="username" maxlength="40"
                                    required
-                                   pattern="[A-Za-z0-9]+"
+                                   pattern="[A-Za-z0-9]{4,40}"
                                    minlength="4"
+                                   oninvalid="this.setCustomValidity('Username should be a minimum of four characters and can consist of alphabets and numbers only!')"
+                                   onchange="this.setCustomValidity('')"
                                    value="<?php echo $username ?>">
                             <?php if (isset($username_error)) : ?>
                                 <div class="mt-2">
@@ -193,7 +196,7 @@ if (isset($_POST['register'])) {
                             <input type="email" class="form-control" id="email" name="email"
                                    value="<?php echo $email ?>"
                                    required
-                                   maxlength="30">
+                                   maxlength="80">
                             <?php if (isset($email_error)) : ?>
                                 <div class="mt-2">
 
@@ -204,7 +207,8 @@ if (isset($_POST['register'])) {
 
                         <div class="form-group col-md-6">
                             <label for="phoneNumber">Phone number</label>
-                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" maxlength="11"
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" maxlength="10"
+                                   minlength="8"
                                    required
                                    pattern="\d*"
                                    value="<?php echo $p_no ?>">
@@ -219,13 +223,16 @@ if (isset($_POST['register'])) {
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
+
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" name="password" maxlength="20"
                                    required value="<?php echo $password ?>"
                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                    oninvalid="this.setCustomValidity('Password should contain minimum 8 characters with at least one special character, one upper case letter, one lower case letter and a number!')"
-                                   onchange="this.setCustomValidity('')"
-                            >
+                                   onchange="this.setCustomValidity('')">
+                            <label for="showPassword" hidden>Show Password</label>
+                            <input class="mt-2" type="checkbox" id="showPassword" onclick="myFunction()">&nbsp;Show
+                            Password
                             <?php if (isset($pwd_error)) : ?>
                                 <div class="mt-2">
 
@@ -292,6 +299,17 @@ if (isset($_POST['register'])) {
 <footer class="my-4 p-2 text-muted text-center text-small">
     <p class="mb-1">&copy; 2021 Blood Bank. By Jayaram G S</p>
 </footer>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
