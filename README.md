@@ -1,5 +1,5 @@
 # bloodbank
-A simlle blood bank system developed using PHP and MySQL database.
+A simple blood bank system developed using PHP and MySQL database.
 
 To start using the app locally, follow the instructions mentioned below
 
